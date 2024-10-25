@@ -58,7 +58,23 @@ class SucursalesController extends Controller
             $values = $request->all();
             $values['estatus'] = 1;
 
-            $this->sucursales->updateOrCreate(['id' => $request->id], $values);
+            $nombreExistente = $this->sucursales->where('nombre', $values['nombre'])
+                ->where('estatus', 1)
+                ->where('id', '!=', $request->id)
+                ->exists();
+
+            if ($nombreExistente) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Ya existe una sucursal activa con ese nombre.',
+                    'results' => null
+                ], 400);
+            }
+
+            $sucursal = $this->sucursales->updateOrCreate(
+                ['id' => $request->id],
+                $values
+            );
 
             return response()->json([
                 'status' => true,
