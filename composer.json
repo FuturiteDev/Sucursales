@@ -1,0 +1,26 @@
+{
+    "name": "ongoing-erp/sucursales",
+    "description": "Modulo de sucursales",
+    "type": "librrary",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ongoing\\Sucursales\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sam"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ongoing\\Sucursales\\SucursalesBaseServiceProvider"
+            ]
+        }
+    }
+}
