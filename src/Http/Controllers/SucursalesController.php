@@ -55,12 +55,12 @@ class SucursalesController extends Controller
     public function save(Request $request){
         try {
 
-            $values = $request->all();
+            $values = $request->only(['nombre', 'direccion']);
             $values['estatus'] = 1;
 
             $nombreExistente = $this->sucursales->where('nombre', $values['nombre'])
                 ->where('estatus', 1)
-                ->where('id', '!=', $request->id)
+                ->where('id', '!=', $request->sucursal_id)
                 ->exists();
 
             if ($nombreExistente) {
@@ -71,11 +71,19 @@ class SucursalesController extends Controller
                 ], 400);
             }
 
-            $sucursal = $this->sucursales->updateOrCreate(
-                ['id' => $request->id],
-                $values
-            );
-
+            if ($request->sucursal_id) {
+                $sucursal = $this->sucursales->find($request->sucursal_id);
+                if (!$sucursal) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Sucursal no encontrada.',
+                        'results' => null
+                    ], 404);
+                }
+                $sucursal->update($values);
+            } else {
+                $sucursal = $this->sucursales->create($values);
+            }
             return response()->json([
                 'status' => true,
                 'message' => "Sucursal guardada.",
