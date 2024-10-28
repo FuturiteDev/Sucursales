@@ -12,7 +12,7 @@ class SucursalesBaseServiceProvider extends ServiceProvider {
 
     public function register(){
         $this->commands([
-            // Console\SucursalesInitCommand::class
+            Console\SucursalesInitCommand::class
         ]);
     }
 
