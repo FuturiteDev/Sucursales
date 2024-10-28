@@ -7,7 +7,7 @@
             <!--begin::Card-->
             <div class="card card-flush" id="content-card">
                 <!--begin::Card header-->
-                <div class="card-header">
+                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                     <div class="card-title flex-column">
                         <h3 class="ps-2">Listado de Sucursales</h3>
                     </div>
@@ -24,11 +24,11 @@
                     <!--begin::Table-->
                     <v-client-table v-model="sucursales" :columns="columns" :options="options">
                         <div slot="acciones" slot-scope="props">
-                            <button type="button" class="btn btn-icon btn-sm btn-info" title="Ver/Editar Sucursal" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sucursal" @click.prevent="selectSucursal(props.row)">
+                            <button type="button" class="btn btn-icon btn-sm btn-success" title="Ver/Editar Sucursal" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sucursal" @click.prevent="selectSucursal(props.row)">
                                 <i class="fas fa-pencil"></i>
                             </button>
 
-                            <button type="button" title="Eliminar" data-kt-indicator="off" class="btn btn-icon btn-sm btn-danger" @click="deleteSucursal(props.row.id)" :data-kt-indicator="props.row.eliminando ? 'on' : 'off'">
+                            <button type="button" title="Eliminar" class="btn btn-icon btn-sm btn-danger" @click="deleteSucursal(props.row.id)" :data-kt-indicator="props.row.eliminando ? 'on' : 'off'">
                                 <span class="indicator-label"><i class="fas fa-trash-alt"></i></span>
                                 <span class="indicator-progress"><span class="spinner-border spinner-border-sm align-middle"></span></span>
                             </button>
@@ -60,27 +60,26 @@
                     <div class="modal-body">
                         <!--begin::Form-->
                         <form id="kt_modal_add_sucursal_form" class="form" action="#" @submit.prevent="">
-                            <div class="row mb-5 fv-row">
-                                <label class="required fw-semibold fs-6">Sucursal</label>
+                            <div class="mb-7 fv-row">
+                                <label class="required fw-semibold fs-6 ms-2">Sucursal</label>
                                 <input type="text" class="form-control" placeholder="Sucursal" v-model="sucursal_model.nombre" name="sucursal"/>
                             </div>
-                            <div class="row mb-5 fv-row">
-                                <label class="required fw-semibold fs-6">Dirección</label>
+                            <div class="mb-7 fv-row">
+                                <label class="required fw-semibold fs-6 ms-2">Dirección</label>
                                 <input type="text" class="form-control" placeholder="Dirección" v-model="sucursal_model.direccion" name="direccion"/>
                             </div>
-                            <!--begin::Actions-->
-                            <div class="text-end pt-15">
-                                <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" title="Eliminar" data-kt-indicator="off" class="btn btn-secondary" @click="saveSucursal" :disabled="loading" :data-kt-indicator="loading ? 'on' : 'off'">
-                                    <span class="indicator-label" v-text="isEdit ? 'Actualizar' : 'Crear'"></span>
-                                    <span class="indicator-progress">[[isEdit ? 'Actualizando' : 'Creando']] <span class="spinner-border spinner-border-sm align-middle"></span></span>
-                                </button>
-                            </div>
-                            <!--end::Actions-->
                         </form>
                         <!--end::Form-->
                     </div>
                     <!--end::Modal body-->
+                    <!--begin::Actions-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @click="saveSucursal" :disabled="loading" :data-kt-indicator="loading ? 'on' : 'off'">
+                            <span class="indicator-label" v-text="isEdit ? 'Actualizar' : 'Crear'"></span>
+                            <span class="indicator-progress">[[isEdit ? 'Actualizando' : 'Creando']] <span class="spinner-border spinner-border-sm align-middle"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
                 </div>
                 <!--end::Modal content-->
             </div>
