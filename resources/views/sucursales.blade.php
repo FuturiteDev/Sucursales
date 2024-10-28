@@ -50,7 +50,7 @@
                 <div class="modal-content">
                     <!--begin::Modal header-->
                     <div class="modal-header">
-                        <h2 class="fw-bold" v-if="isEdit" v-text="isEdit ? 'Actualizar sucursal' : 'Crear sucursal'"></h2>
+                        <h2 class="fw-bold" v-text="isEdit ? 'Actualizar sucursal' : 'Crear sucursal'"></h2>
                         <!--begin::Close-->
                         <div class="btn btn-close" data-bs-dismiss="modal"></div>
                         <!--end::Close-->
