@@ -27,7 +27,6 @@
                             <button type="button" class="btn btn-icon btn-sm btn-success" title="Ver/Editar Sucursal" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sucursal" @click.prevent="selectSucursal(props.row)">
                                 <i class="fas fa-pencil"></i>
                             </button>
-
                             <button type="button" title="Eliminar" class="btn btn-icon btn-sm btn-danger" @click="deleteSucursal(props.row.id)" :data-kt-indicator="props.row.eliminando ? 'on' : 'off'">
                                 <span class="indicator-label"><i class="fas fa-trash-alt"></i></span>
                                 <span class="indicator-progress"><span class="spinner-border spinner-border-sm align-middle"></span></span>
@@ -68,6 +67,18 @@
                                 <label class="required fw-semibold fs-6 ms-2">Dirección</label>
                                 <input type="text" class="form-control" placeholder="Dirección" v-model="sucursal_model.direccion" name="direccion"/>
                             </div>
+                            <div class="mb-7 fv-row">
+                                <label class="fw-semibold fs-6 ms-2">Teléfono</label>
+                                <input type="tel" class="form-control" placeholder="Teléfono" v-model="sucursal_model.telefono" name="telefono"/>
+                            </div>
+                            <div class="mb-7 fv-row">
+                                <label class="fw-semibold fs-6 ms-2">WhatsApp</label>
+                                <input type="tel" class="form-control" placeholder="WhatsApp" v-model="sucursal_model.whatsapp" name="whatsapp"/>
+                            </div>
+                            <div class="mb-7 fv-row">
+                                <label class="fw-semibold fs-6 ms-2">Email</label>
+                                <input type="email" class="form-control" placeholder="Email" v-model="sucursal_model.email" name="email"/>
+                            </div>
                         </form>
                         <!--end::Form-->
                     </div>
@@ -99,18 +110,24 @@
             delimiters: ['[[', ']]'],
             data: () => ({
                 sucursales: [],
-                columns: ['id', 'nombre', 'direccion', 'acciones'],
+                columns: ['id', 'nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'acciones'],
                 options: {
                     headings: {
                         id: 'ID',
                         nombre: 'Sucursal',
                         direccion: 'Dirección',
+                        telefono: 'Telefono',
+                        whatsapp: 'WhatsApp',
+                        email: 'Email',
                         acciones: 'Acciones',
                     },
                     columnsClasses: {
                         id: 'align-middle px-2 ',
                         nombre: 'align-middle ',
                         direccion: 'align-middle ',
+                        email: 'align-middle text-center ',
+                        telefono: 'align-middle text-center ',
+                        whatsapp: 'align-middle text-center ',
                         acciones: 'align-middle text-center px-2 ',
                     },
                     sortable: ['nombre', 'direccion'],
@@ -214,7 +231,10 @@
                                     data: {
                                         sucursal_id: vm.isEdit ? vm.sucursal_model.id : null,
                                         nombre: vm.sucursal_model.nombre,
-                                        direccion: vm.sucursal_model.direccion
+                                        direccion: vm.sucursal_model.direccion,
+                                        telefono: vm.sucursal_model.telefono,
+                                        whatsapp: vm.sucursal_model.whatsapp,
+                                        email: vm.sucursal_model.email,
                                     }
                                 }).done(function (res) {
                                     if (res.status === true) {
@@ -300,6 +320,9 @@
                         id: sucursal.id,
                         nombre: sucursal.nombre,
                         direccion: sucursal.direccion,
+                        telefono: sucursal.telefono,
+                        whatsapp: sucursal.whatsapp,
+                        email: sucursal.email,
                     };
                 },
                 formValidate() {
