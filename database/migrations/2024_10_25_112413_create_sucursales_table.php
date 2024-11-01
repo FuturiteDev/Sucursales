@@ -16,7 +16,7 @@ return new class extends Migration
             $table->increments('id');
 			$table->string('nombre');
             $table->text('direccion')->nullable();
-            $table->tinyInteger('estatus')->default(0);
+            $table->tinyInteger('estatus')->default(1);
             $table->timestamps();
 			
 			$table->engine = 'InnoDB';
