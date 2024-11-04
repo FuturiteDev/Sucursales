@@ -22,6 +22,7 @@ class SucursalesController extends Controller
     }
     
     function index() {
+        Gate::authorize('access-granted', '/sucursales');
         $sucursales = $this->getAll();
         return view('sucursales::sucursales', ['sucursales' => $sucursales]);
     }
