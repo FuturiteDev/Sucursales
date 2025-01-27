@@ -23,6 +23,9 @@
                 <div class="card-body py-4">
                     <!--begin::Table-->
                     <v-client-table v-model="sucursales" :columns="columns" :options="options">
+                        <div slot="matriz" slot-scope="props">
+                            <i v-if="props.row.matriz == 1" class="ki-solid ki-star fs-4"></i>
+                        </div>
                         <div slot="acciones" slot-scope="props">
                             <button type="button" class="btn btn-icon btn-sm btn-success" title="Ver/Editar Sucursal" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sucursal" @click.prevent="selectSucursal(props.row)">
                                 <i class="fas fa-pencil"></i>
@@ -79,6 +82,12 @@
                                 <label class="fw-semibold fs-6 ms-2">Email</label>
                                 <input type="email" class="form-control" placeholder="Email" v-model="sucursal_model.email" name="email"/>
                             </div>
+                            <div class="mb-7 fv-row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" v-model="sucursal_model.matriz" name="matriz"/>
+                                    <label class="fw-semibold">Matriz</label>
+                                </div>
+                            </div>
                         </form>
                         <!--end::Form-->
                     </div>
@@ -110,9 +119,10 @@
             delimiters: ['[[', ']]'],
             data: () => ({
                 sucursales: [],
-                columns: ['id', 'nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'acciones'],
+                columns: ['matriz', 'id', 'nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'acciones'],
                 options: {
                     headings: {
+                        matriz: '',
                         id: 'ID',
                         nombre: 'Sucursal',
                         direccion: 'Dirección',
@@ -122,6 +132,7 @@
                         acciones: 'Acciones',
                     },
                     columnsClasses: {
+                        matriz: 'align-middle px-2 ',
                         id: 'align-middle px-2 ',
                         nombre: 'align-middle ',
                         direccion: 'align-middle ',
@@ -235,6 +246,7 @@
                                         telefono: vm.sucursal_model.telefono,
                                         whatsapp: vm.sucursal_model.whatsapp,
                                         email: vm.sucursal_model.email,
+                                        matriz: vm.sucursal_model.matriz ? 1 : 0,
                                     }
                                 }).done(function (res) {
                                     if (res.status === true) {
@@ -323,6 +335,7 @@
                         telefono: sucursal.telefono,
                         whatsapp: sucursal.whatsapp,
                         email: sucursal.email,
+                        matriz: sucursal.matriz == 1 ? true : false,
                     };
                 },
                 formValidate() {
