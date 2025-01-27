@@ -20,11 +20,7 @@ class Sucursales extends Model implements Transformable
      *
      * @var array
      */
-<<<<<<< HEAD
-    protected $fillable = ['nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'estatus'];
-=======
-    protected $fillable = ['nombre', 'direccion', 'estatus', 'matriz'];
->>>>>>> 7fdb29b (sucursales matriz agregada)
+    protected $fillable = ['nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'estatus', 'matriz'];
 
 
     public function productosPendientesTraspaso()
