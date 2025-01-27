@@ -57,6 +57,7 @@ class SucursalesController extends Controller
         try {
 
             $values = $request->except(['sucursal_id']);
+            $values = $request->only(['nombre', 'direccion', 'matriz']);
             $values['estatus'] = 1;
 
             $nombreExistente = $this->sucursales->where('nombre', $values['nombre'])
@@ -72,6 +73,12 @@ class SucursalesController extends Controller
                 ], 400);
             }
 
+            if ($values['matriz'] == 1) {
+                $this->sucursales->where('matriz', 1)->update(['matriz' => 0]);
+            } else {                
+                $values['matriz'] = 0;
+            }
+
             if ($request->sucursal_id) {
                 $sucursal = $this->sucursales->find($request->sucursal_id);
                 if (!$sucursal) {
@@ -85,6 +92,7 @@ class SucursalesController extends Controller
             } else {
                 $sucursal = $this->sucursales->create($values);
             }
+            
             return response()->json([
                 'status' => true,
                 'message' => "Sucursal guardada.",
