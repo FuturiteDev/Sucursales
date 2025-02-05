@@ -5,7 +5,7 @@ namespace Ongoing\Sucursales\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-
+use Ongoing\Inventarios\Entities\ProductosPendientesTraspaso;
 /**
  * Class Sucursales.
  *
@@ -22,4 +22,9 @@ class Sucursales extends Model implements Transformable
      */
     protected $fillable = ['nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'estatus', 'matriz'];
 
+
+    public function productosPendientesTraspaso()
+    {
+        return $this->hasMany(ProductosPendientesTraspaso::class);
+    }
 }
