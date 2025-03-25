@@ -21,6 +21,11 @@
 
                 <!--begin::Card body-->
                 <div class="card-body py-4">
+                    <div class="px-4 py-2">
+                        <button class="btn btn-success" @click="syncShopify" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sincronizar con Shopify">
+                            Sincronizar <i class="ki-solid ki-arrows-circle"></i>
+                        </button>
+                    </div>
                     <!--begin::Table-->
                     <v-client-table v-model="sucursales" :columns="columns" :options="options">
                         <div slot="matriz" slot-scope="props">
@@ -228,6 +233,28 @@
                         if (vm.blockUI && vm.blockUI.isBlocked()) {
                             vm.blockUI.release();
                         }
+                    });
+                },
+                syncShopify(){
+                    let vm = this;
+                    const loadingEl = document.createElement("div");
+                    document.body.prepend(loadingEl);
+                    loadingEl.classList.add("page-loader");
+                    loadingEl.classList.add("bg-gray-900");
+                    loadingEl.classList.add("bg-opacity-50");
+                    loadingEl.innerHTML = `
+                    <span class="bg-white d-flex flex-center flex-column px-10 py-5 rounded">
+                    <span class="spinner-border text-primary" role="status"></span>
+                    <span class="fs-6 fw-semibold mt-5 text-gray-800">Sincronizando...</span>
+                    </span>`;
+                    KTApp.showPageLoading();
+                    
+                    $.get('/api/shopify/sucursales', res => {
+
+                    }, 'json').always(function() {
+                        KTApp.hidePageLoading();
+                        loadingEl.remove();
+                        vm.getSucursales(true);
                     });
                 },
                 saveSucursal() {
