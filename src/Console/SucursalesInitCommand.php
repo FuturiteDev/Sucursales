@@ -4,7 +4,6 @@ namespace Ongoing\Sucursales\Console;
 
 use App\Entities\Navegacion;
 use Illuminate\Console\Command;
-use App\Repositories\NavegacionRepositoryEloquent;
 
 class SucursalesInitCommand extends Command
 {
@@ -37,7 +36,7 @@ class SucursalesInitCommand extends Command
      *
      * @return int
      */
-    public function handle(NavegacionRepositoryEloquent $nav_repo)
+    public function handle()
     {
 
         $menu_navegacion = [
