@@ -74,9 +74,9 @@ class SucursalesInitCommand extends Command
                     $sub_sub_nav->fill($sub_sub)->save();
                     $ids_sub_sub[] = $sub_sub_nav->id;
                 }
-                $sub_nav->submenu()->whereNotIn('id', $ids_sub_sub)->delete();
+                // $sub_nav->submenu()->whereNotIn('id', $ids_sub_sub)->delete();
             }
-            $nav->submenu()->whereNotIn('id', $ids_submenu)->delete();
+            // $nav->submenu()->whereNotIn('id', $ids_submenu)->delete();
         }
     }
 }
