@@ -78,5 +78,6 @@ class SucursalesInitCommand extends Command
             }
             // $nav->submenu()->whereNotIn('id', $ids_submenu)->delete();
         }
+        
     }
 }
