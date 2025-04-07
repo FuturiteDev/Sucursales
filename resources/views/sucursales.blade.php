@@ -31,6 +31,9 @@
                         <div slot="matriz" slot-scope="props">
                             <i v-if="props.row.matriz == 1" class="ki-solid ki-star fs-4"></i>
                         </div>
+                        <div slot="color" slot-scope="props">
+                            <div v-if="props.row.color" class="h-25px w-50px" :style="{'background-color': '#' + (props.row.color.slice(4) ?? '000000')}"></div>
+                        </div>
                         <div slot="acciones" slot-scope="props">
                             <button type="button" class="btn btn-icon btn-sm btn-success" title="Ver/Editar Sucursal" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sucursal" @click.prevent="selectSucursal(props.row)">
                                 <i class="fas fa-pencil"></i>
@@ -130,12 +133,13 @@
             delimiters: ['[[', ']]'],
             data: () => ({
                 sucursales: [],
-                columns: ['matriz', 'id', 'nombre', 'direccion', 'telefono', 'whatsapp', 'email', 'acciones'],
+                columns: ['matriz', 'id', 'nombre', 'color', 'direccion', 'telefono', 'whatsapp', 'email', 'acciones'],
                 options: {
                     headings: {
                         matriz: '',
                         id: 'ID',
                         nombre: 'Sucursal',
+                        nombre: 'Color',
                         direccion: 'Dirección',
                         telefono: 'Telefono',
                         whatsapp: 'WhatsApp',
@@ -146,6 +150,7 @@
                         matriz: 'align-middle px-2 ',
                         id: 'align-middle px-2 ',
                         nombre: 'align-middle ',
+                        color: 'align-middle text-center ',
                         direccion: 'align-middle ',
                         email: 'align-middle text-center ',
                         telefono: 'align-middle text-center ',
