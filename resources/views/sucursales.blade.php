@@ -67,30 +67,36 @@
                     <div class="modal-body">
                         <!--begin::Form-->
                         <form id="kt_modal_add_sucursal_form" class="form" action="#" @submit.prevent="">
-                            <div class="mb-7 fv-row">
-                                <label class="required fw-semibold fs-6 ms-2">Sucursal</label>
-                                <input type="text" class="form-control" placeholder="Sucursal" v-model="sucursal_model.nombre" name="sucursal"/>
-                            </div>
-                            <div class="mb-7 fv-row">
-                                <label class="required fw-semibold fs-6 ms-2">Dirección</label>
-                                <input type="text" class="form-control" placeholder="Dirección" v-model="sucursal_model.direccion" name="direccion"/>
-                            </div>
-                            <div class="mb-7 fv-row">
-                                <label class="fw-semibold fs-6 ms-2">Teléfono</label>
-                                <input type="tel" class="form-control" placeholder="Teléfono" v-model="sucursal_model.telefono" name="telefono"/>
-                            </div>
-                            <div class="mb-7 fv-row">
-                                <label class="fw-semibold fs-6 ms-2">WhatsApp</label>
-                                <input type="tel" class="form-control" placeholder="WhatsApp" v-model="sucursal_model.whatsapp" name="whatsapp"/>
-                            </div>
-                            <div class="mb-7 fv-row">
-                                <label class="fw-semibold fs-6 ms-2">Email</label>
-                                <input type="email" class="form-control" placeholder="Email" v-model="sucursal_model.email" name="email"/>
-                            </div>
-                            <div class="mb-7 fv-row">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" v-model="sucursal_model.matriz" name="matriz"/>
-                                    <label class="fw-semibold">Matriz</label>
+                            <div class="row g-7">
+                                <div class="col-12 fv-row">
+                                    <label class="required fw-semibold fs-6 ms-2">Sucursal</label>
+                                    <input type="text" class="form-control" placeholder="Sucursal" v-model="sucursal_model.nombre" name="sucursal"/>
+                                </div>
+                                <div class="col-12 fv-row">
+                                    <label class="required fw-semibold fs-6 ms-2">Dirección</label>
+                                    <input type="text" class="form-control" placeholder="Dirección" v-model="sucursal_model.direccion" name="direccion"/>
+                                </div>
+                                <div class="col-12 fv-row">
+                                    <label class="fw-semibold fs-6 ms-2">Teléfono</label>
+                                    <input type="tel" class="form-control" placeholder="Teléfono" v-model="sucursal_model.telefono" name="telefono"/>
+                                </div>
+                                <div class="col-12 fv-row">
+                                    <label class="fw-semibold fs-6 ms-2">WhatsApp</label>
+                                    <input type="tel" class="form-control" placeholder="WhatsApp" v-model="sucursal_model.whatsapp" name="whatsapp"/>
+                                </div>
+                                <div class="col-12 fv-row">
+                                    <label class="fw-semibold fs-6 ms-2">Email</label>
+                                    <input type="email" class="form-control" placeholder="Email" v-model="sucursal_model.email" name="email"/>
+                                </div>
+                                <div class="col-12 fv-row">
+                                    <label class="required fw-semibold fs-6 ms-2">Color asignado</label>
+                                    <input type="color" id="color" name="color" class="align-middle" v-model="sucursal_model.color" />
+                                </div>
+                                <div class="col-12 fv-row">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" v-model="sucursal_model.matriz" name="matriz"/>
+                                        <label class="fw-semibold">Matriz</label>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -170,7 +176,9 @@
                     },
                 },
 
-                sucursal_model: {},
+                sucursal_model: {
+                    color: "#000000",
+                },
 
                 validator: null,
                 isEdit: false,
@@ -191,7 +199,9 @@
                 vm.formValidate();
                 $("#kt_modal_add_sucursal").on('hidden.bs.modal', event => {
                     vm.validator.resetForm();
-                    vm.sucursal_model = {};
+                    vm.sucursal_model = {
+                        color:"#000000",
+                    };
                 });
             },
             methods: {
@@ -274,6 +284,7 @@
                                         whatsapp: vm.sucursal_model.whatsapp,
                                         email: vm.sucursal_model.email,
                                         matriz: vm.sucursal_model.matriz ? 1 : 0,
+                                        color: '0xFF' + vm.sucursal_model.color.slice(1),
                                     }
                                 }).done(function (res) {
                                     if (res.status === true) {
@@ -363,6 +374,7 @@
                         whatsapp: sucursal.whatsapp,
                         email: sucursal.email,
                         matriz: sucursal.matriz == 1 ? true : false,
+                        color: '#' + sucursal.color?.slice(4) ?? "#000000",
                     };
                 },
                 formValidate() {
@@ -386,6 +398,14 @@
                                     validators: {
                                         notEmpty: {
                                             message: 'Direccíon requerida',
+                                            trim: true
+                                        }
+                                    }
+                                },
+                                'color': {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'Color requerido',
                                             trim: true
                                         }
                                     }

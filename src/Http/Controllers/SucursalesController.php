@@ -57,7 +57,7 @@ class SucursalesController extends Controller
         try {
 
             $values = $request->except(['sucursal_id']);
-            $values = $request->only(['nombre', 'direccion', 'matriz']);
+            $values = $request->only(['nombre', 'direccion', 'matriz', 'color']);
             $values['estatus'] = 1;
 
             $nombreExistente = $this->sucursales->where('nombre', $values['nombre'])
